@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login | Rajus Laundromat</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../scroll-animations.css">
+  <style>
+    .login-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .login-form {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      max-width: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-video-wrap">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="images/" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="logo">Rajus<span>Laundromat</span></div>
+    <nav id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="login.html" class="active">Login</a>
+    </nav>
+  </header>
+
+  <div class="login-container" data-animate="fade-up">
+    <div class="login-form" data-animate="zoom-in">
+      <h2 data-animate="fade-down">Login</h2>
+
+      <label data-animate="fade-up">Email</label>
+      <input id="email" type="email" placeholder="Email" data-animate="fade-up"><br><br>
+
+      <label data-animate="fade-up">Password</label>
+      <input id="password" type="password" placeholder="Password" data-animate="fade-up"><br><br>
+
+      <button onclick="login()" data-animate="zoom-in">Login</button>
+
+      <p style="text-align: center; margin-top: 15px;" data-animate="fade-up">
+        Don't have an account? <a href="register.html">Register here</a>
+      </p>
+    </div>
+  </div>
+
+  <a href="https://wa.me/254717667713" class="whatsapp-float">💬</a>
+
+  <script src="../shared-animations.js"></script>
+  <script>
+    function login() {
+      fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        })
+      })
+      .then(res => res.json())
+      .then(user => {
+        localStorage.setItem("user", JSON.stringify(user));
+
+        if (user.role === "driver") location.href = "driver.html";
+        if (user.role === "rider") location.href = "rider.html";
+        if (user.role === "laundry") location.href = "pricing.html";
+        if (user.role === "admin") location.href = "admin.html";
+      })
+      .catch(() => alert("Login failed"));
+    }
+  </script>
+  <script src="js/navigator.js"></script>
+</body>
+</html>
+ 

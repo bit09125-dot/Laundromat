@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register | Rajus Laundromat</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../scroll-animations.css">
+  <style>
+    .register-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .register-form {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      max-width: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-video-wrap">
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="images/" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+</div>
+
+<header class="navbar">
+  <div class="logo">Rajus<span>Laundromat</span></div>
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="register.html" class="active">Register</a>
+  </nav>
+</header>
+
+<div class="register-container" data-animate="fade-up">
+  <div class="register-form" data-animate="zoom-in">
+    <h2 data-animate="fade-down">Create Account</h2>
+
+    <label data-animate="fade-up">Full Name</label>
+    <input id="name" placeholder="Full Name" data-animate="fade-up"><br><br>
+
+    <label data-animate="fade-up">Email</label>
+    <input id="email" placeholder="Email" data-animate="fade-up"><br><br>
+
+    <label data-animate="fade-up">Password</label>
+    <input id="password" type="password" placeholder="Password" data-animate="fade-up"><br><br>
+
+    <label data-animate="fade-up">Account Type</label>
+    <select id="role" data-animate="fade-up">
+      <option value="rider">Rider</option>
+      <option value="driver">Driver</option>
+      <option value="laundry">Laundry Client</option>
+      <option value="admin">Admin</option>
+    </select><br><br>
+
+    <button onclick="register()" data-animate="zoom-in">Register</button>
+
+    <p style="text-align: center; margin-top: 15px;" data-animate="fade-up">
+      Already have an account? <a href="login.html">Login here</a>
+    </p>
+  </div>
+</div>
+
+<a href="https://wa.me/254717667713" class="whatsapp-float">💬</a>
+
+<script src="../shared-animations.js"></script>
+<script>
+function register() {
+  fetch("http://localhost:3000/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      role: role.value
+    })
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert("Registered successfully");
+    location.href = "login.html";
+  });
+}
+</script>
+<script src="js/navigator.js"></script>
+
+</body>
+</html>

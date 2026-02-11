@@ -1,0 +1,359 @@
+/**
+ * Scroll Animations CSS Library
+ * Unified animations for all pages
+ */
+
+/* ============= ANIMATION KEYFRAMES ============= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+  }
+}
+
+/* ============= SCROLL ANIMATION CLASSES ============= */
+
+/* Elements before animation */
+[data-animate] {
+  opacity: 0;
+}
+
+/* Fade Up Animation */
+[data-animate="fade-up"] {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+/* Fade Down Animation */
+[data-animate="fade-down"] {
+  animation: fadeDown 0.8s ease-out forwards;
+}
+
+/* Fade Left Animation */
+[data-animate="fade-left"] {
+  animation: fadeLeft 0.8s ease-out forwards;
+}
+
+/* Fade Right Animation */
+[data-animate="fade-right"] {
+  animation: fadeRight 0.8s ease-out forwards;
+}
+
+/* Zoom In Animation */
+[data-animate="zoom-in"] {
+  animation: zoomIn 0.8s ease-out forwards;
+}
+
+/* Slide Up Animation */
+[data-animate="slide-up"] {
+  animation: slideUp 1s ease-out forwards;
+}
+
+/* Slide Down Animation */
+[data-animate="slide-down"] {
+  animation: slideDown 1s ease-out forwards;
+}
+
+/* Rotate In Animation */
+[data-animate="rotate-in"] {
+  animation: rotateIn 0.8s ease-out forwards;
+}
+
+/* Pulse Animation */
+[data-animate="pulse"] {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Bounce Animation */
+[data-animate="bounce"] {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* Glow Animation */
+[data-animate="glow"] {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ============= FAST ANIMATIONS (0.5s) ============= */
+[data-animate*="-fast"] {
+  animation-duration: 0.5s !important;
+}
+
+/* ============= SLOW ANIMATIONS (1.2s) ============= */
+[data-animate*="-slow"] {
+  animation-duration: 1.2s !important;
+}
+
+/* ============= STAGGER ANIMATIONS ============= */
+.animate-stagger > * {
+  opacity: 0;
+}
+
+.animate-stagger > [data-animate] {
+  animation-fill-mode: forwards;
+}
+
+/* ============= SCROLL PROGRESS INDICATOR ============= */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, #00e5ff, #0077ff, #00e5ff);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* ============= PARALLAX EFFECTS ============= */
+.parallax {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-element {
+  will-change: transform;
+  transform: translateY(0);
+}
+
+/* ============= FADE ON SCROLL ============= */
+.fade-on-scroll {
+  transition: opacity 0.3s ease;
+}
+
+.fade-on-scroll.scrolling-down {
+  opacity: 0.7;
+}
+
+.fade-on-scroll.scrolling-up {
+  opacity: 1;
+}
+
+/* ============= STICKY ANIMATIONS ============= */
+.sticky-animate {
+  position: sticky;
+  top: 0;
+}
+
+.sticky-animate.pinned {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ============= CARD ANIMATIONS ============= */
+.card[data-animate] {
+  animation-duration: 0.6s;
+}
+
+.card[data-animate]:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 30px rgba(0, 229, 255, 0.3) !important;
+  transition: all 0.3s ease;
+}
+
+/* ============= BUTTON ANIMATIONS ============= */
+button[data-animate],
+.btn[data-animate],
+.ghost-btn[data-animate] {
+  animation-duration: 0.6s;
+}
+
+button[data-animate]:hover,
+.btn[data-animate]:hover,
+.ghost-btn[data-animate]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 229, 255, 0.4);
+}
+
+/* ============= TEXT ANIMATIONS ============= */
+h1[data-animate],
+h2[data-animate],
+h3[data-animate],
+h4[data-animate],
+h5[data-animate],
+h6[data-animate],
+p[data-animate] {
+  animation-duration: 0.7s;
+}
+
+/* ============= IMAGE ANIMATIONS ============= */
+img[data-animate] {
+  animation-duration: 0.6s;
+}
+
+img[data-animate]:hover {
+  filter: brightness(1.1);
+}
+
+/* ============= LIST ANIMATIONS ============= */
+li[data-animate] {
+  animation-duration: 0.5s;
+}
+
+ul[data-animate] > li,
+ol[data-animate] > li {
+  animation-duration: 0.5s;
+}
+
+/* ============= SECTION ANIMATIONS ============= */
+section[data-animate] {
+  animation-duration: 1s;
+}
+
+/* ============= MOBILE RESPONSIVE ADJUSTMENTS ============= */
+@media (max-width: 768px) {
+  [data-animate] {
+    animation-duration: 0.6s !important;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ============= ACCESSIBILITY ============= */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  button[data-animate]:hover,
+  .btn[data-animate]:hover,
+  .ghost-btn[data-animate]:hover,
+  img[data-animate]:hover {
+    transform: none !important;
+  }
+}
+
+/* ============= DEBUG MODE ============= */
+.debug-animations [data-animate] {
+  border: 2px solid rgba(0, 229, 255, 0.5);
+  outline: 1px dashed rgba(0, 229, 255, 0.3);
+}

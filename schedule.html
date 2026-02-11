@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Schedule Pickup | Rajus Laundromat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../scroll-animations.css">
+</head>
+<body>
+
+<div class="bg-video-wrap">
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="images/6482495-uhd_3840_2160_30fps.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+</div>
+
+<header class="navbar">
+  <div class="logo">Rajus<span>Laundromat</span></div>
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="book.html" class="cta-link">Book Pickup</a>
+    <a href="login.html" class="cta-link">Login</a>
+  </nav>
+</header>
+
+<section class="section" style="max-width:720px;margin:80px auto;">
+  <h2>Schedule Pickup & Delivery</h2>
+  <p class="section-sub">Choose preferred pickup and delivery dates and times</p>
+
+  <div class="card">
+    <label>Full Name</label>
+    <input id="name" type="text" placeholder="Your full name">
+
+    <label style="margin-top:10px;">Phone</label>
+    <input id="phone" type="tel" placeholder="07XXXXXXXX">
+
+    <label style="margin-top:10px;">Pickup Address</label>
+    <input id="address" type="text" placeholder="Pickup address">
+
+    <label style="margin-top:10px;">Pickup Date & Time</label>
+    <input id="pickupDate" type="date">
+    <input id="pickupTime" type="time">
+
+    <label style="margin-top:10px;">Delivery Date & Time</label>
+    <input id="deliveryDate" type="date">
+    <input id="deliveryTime" type="time">
+
+    <label style="margin-top:10px;">Notes</label>
+    <input id="notes" type="text" placeholder="Extra instructions (optional)">
+
+    <button id="scheduleBtn" style="margin-top:15px;">Save Schedule</button>
+
+    <p style="margin-top:12px;">Or <a href="pricing.html">calculate price</a> first.</p>
+  </div>
+</section>
+
+<a href="https://wa.me/254717667713" class="whatsapp-float">💬</a>
+
+<script>
+document.getElementById('scheduleBtn').addEventListener('click', function(){
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const pickupDate = document.getElementById('pickupDate').value;
+  const pickupTime = document.getElementById('pickupTime').value;
+  const deliveryDate = document.getElementById('deliveryDate').value;
+  const deliveryTime = document.getElementById('deliveryTime').value;
+  const notes = document.getElementById('notes').value.trim();
+
+  if(!name || !phone || !address || !pickupDate || !pickupTime) {
+    alert('Please fill name, phone, address and pickup date/time');
+    return;
+  }
+
+  const schedule = { name, phone, address, pickupDate, pickupTime, deliveryDate, deliveryTime, notes, created: new Date().toISOString() };
+  localStorage.setItem('laundrySchedule', JSON.stringify(schedule));
+  // Compose WhatsApp message for business
+  const svc = localStorage.getItem('laundryService') || '-';
+  const qty = localStorage.getItem('laundryQty') || '-';
+  const total = localStorage.getItem('laundryTotal') || 'KES 0';
+
+  // Save schedule locally and redirect to booking for payment first
+  alert('Schedule saved. Please proceed to payment on the booking page.');
+  window.location.href = 'book.html';
+});
+</script>
+
+</body>
+</html>

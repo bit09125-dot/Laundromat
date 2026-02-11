@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Pickup | Rajus Laundromat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../scroll-animations.css">
+</head>
+<body>
+
+<div class="bg-video-wrap">
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="images/" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+</div>
+
+<header class="navbar">
+  <div class="logo">Rajus<span>Laundromat</span></div>
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="book.html" class="active cta-link">Book Pickup</a>
+  </nav>
+</header>
+
+<section class="section" data-animate="fade-up">
+  <h2 data-animate="fade-down">Complete Your Booking</h2>
+  <p class="section-sub" data-animate="fade-up">Confirm details and pay via M-Pesa</p>
+
+  <div class="grid" style="max-width:900px;margin:auto;" data-animate="zoom-in">
+
+    <!-- ORDER SUMMARY -->
+    <div class="card" data-animate="fade-left">
+      <h3 data-animate="fade-down">Order Summary</h3>
+      <p><strong>Service:</strong> <span id="summaryService">—</span></p>
+      <p><strong>Quantity:</strong> <span id="summaryQty">—</span></p>
+      <p><strong>Express:</strong> <span id="summaryExpress">—</span></p>
+      <p><strong>Amount:</strong> <span id="summaryTotal" data-animate="pulse">KES 0</span></p>
+      <p><strong>Pickup:</strong> <span id="summaryPickup">—</span></p>
+      <p><strong>Delivery:</strong> <span id="summaryDelivery">—</span></p>
+      <p><strong>Pickup Address:</strong> <span id="summaryAddress">—</span></p>
+      <p style="margin-top:10px;"><a href="pricing.html">Edit Order</a></p>
+    </div>
+
+    <div class="card" data-animate="fade-right">
+      <h3 data-animate="fade-down">Pay with M-Pesa</h3>
+
+      <p><strong>PayBill Number:</strong> 247247</p>
+      <p><strong>Account Number:</strong> 667713</p>
+
+      <p><strong>Amount:</strong> <span id="summaryTotalPay" data-animate="glow">KES 0</span></p>
+
+      <label style="margin-top:8px;" data-animate="fade-up">Full Name</label>
+      <input type="text" id="name" placeholder="Your full name" data-animate="fade-up">
+
+      <label style="margin-top:8px;" data-animate="fade-up">Pickup Address</label>
+      <input type="text" id="location" placeholder="Pickup address" data-animate="fade-up">
+
+      <label style="margin-top:8px;" data-animate="fade-up">Phone</label>
+      <input type="tel" id="phone" placeholder="07XXXXXXXX" data-animate="fade-up">
+
+      <button onclick="stkPush()" data-animate="zoom-in">Pay via STK Push</button>
+
+      <p style="margin:15px 0;text-align:center;">OR</p>
+
+      <button class="ghost-btn" onclick="manualPay()" data-animate="zoom-in">I Have Paid (Manual)</button>
+    </div>
+  </div>
+</section>
+
+<a href="https://wa.me/254717667713" class="whatsapp-float">💬</a>
+
+<script src="../shared-animations.js"></script>
+<script>
+  // Populate order summary from pricing page (localStorage)
+  (function(){
+    const labels = {
+      wash: 'Wash & Fold (KES 100/kg)',
+      washIron: 'Wash, Dry & Iron (KES 150/kg)',
+      iron: 'Ironing Only (KES 50/item)',
+      dryclean: 'Dry Cleaning (KES 400/item)',
+      duvets: 'Duvets & Curtains (From KES 500)'
+    };
+
+    const svc = localStorage.getItem('laundryService');
+    const qty = localStorage.getItem('laundryQty');
+    const exp = localStorage.getItem('laundryExpress') === 'true';
+    const total = localStorage.getItem('laundryTotal');
+
+    const sSvc = document.getElementById('summaryService');
+    const sQty = document.getElementById('summaryQty');
+    const sExp = document.getElementById('summaryExpress');
+    const sTotal = document.getElementById('summaryTotal');
+    const sTotalPay = document.getElementById('summaryTotalPay');
+
+    if(!svc || !qty) {
+      sSvc.textContent = 'No order selected';
+      sQty.textContent = '-';
+      sExp.textContent = '-';
+      sTotal.textContent = 'KES 0';
+      sTotalPay.textContent = 'KES 0';
+      // also try to populate schedule if available
+      const schRaw = localStorage.getItem('laundrySchedule');
+      if (schRaw) {
+        try {
+          const s = JSON.parse(schRaw);
+          setScheduleFields(s);
+        } catch(e){}
+      }
+      return;
+    }
+
+    sSvc.textContent = labels[svc] || svc;
+    sQty.textContent = qty;
+    sExp.textContent = exp ? 'Yes' : 'No';
+    sTotal.textContent = total || 'KES 0';
+    sTotalPay.textContent = total || 'KES 0';
+
+    // Populate schedule fields if available
+    const schRaw = localStorage.getItem('laundrySchedule');
+    if (schRaw) {
+      try {
+        const s = JSON.parse(schRaw);
+        setScheduleFields(s);
+      } catch(e){}
+    }
+  })();
+
+  function setScheduleFields(s) {
+    const pickup = s.pickupDate ? (s.pickupDate + (s.pickupTime ? ' ' + s.pickupTime : '')) : '-';
+    const delivery = s.deliveryDate ? (s.deliveryDate + (s.deliveryTime ? ' ' + s.deliveryTime : '')) : '-';
+    document.getElementById('summaryPickup').textContent = pickup;
+    document.getElementById('summaryDelivery').textContent = delivery;
+    document.getElementById('summaryAddress').textContent = s.address || '-';
+
+    if (document.getElementById('name')) document.getElementById('name').value = s.name || '';
+    if (document.getElementById('phone')) document.getElementById('phone').value = s.phone || '';
+    if (document.getElementById('location')) document.getElementById('location').value = s.address || '';
+  }
+
+  // Placeholder payment functions (existing implementations may override)
+  function stkPush(){
+    const phone = document.getElementById('phone').value.trim();
+    if(!phone) { alert('Enter phone number'); return; }
+    alert('STK Push initiated for ' + document.getElementById('summaryTotalPay').textContent);
+  }
+
+  function manualPay(){
+    alert('Marking order as paid. Our team will confirm shortly.');
+  }
+</script>
+
+<script src="js/navigator.js"></script>
+
+</body>
+</html>

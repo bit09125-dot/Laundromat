@@ -93,6 +93,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  const service = document.getElementById("service");
+  const quantity = document.getElementById("quantity");
+  const express = document.getElementById("express");
+  const total = document.getElementById("total");
+
+  function calculate() {
+    let qty = parseFloat(quantity.value) || 0;
+    let price = 0;
+
+    if (service.value === "wash") price = qty * 100;
+    if (service.value === "washIron") price = qty * 150;
+    if (service.value === "iron") price = qty * 50;
+    if (service.value === "dryclean") price = qty * 400;
+    if (service.value === "duvets") price = qty * 500;
+
+    if (express.checked) {
+      price *= 1.2;
+    }
+
+    total.textContent = "KES " + Math.round(price);
+  }
+
+  service.addEventListener("change", calculate);
+  quantity.addEventListener("input", calculate);
+  express.addEventListener("change", calculate);
+
+  calculate(); // 👈 THIS LINE FIXES IT
+});
+</script>
 </body>
 </html>

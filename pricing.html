@@ -4,74 +4,95 @@
   <meta charset="UTF-8">
   <title>Pricing Calculator | Rajus Laundromat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="../scroll-animations.css">
 </head>
+
 <body>
 
-<div class="bg-video-wrap">
-  <video class="bg-video" autoplay muted loop playsinline>
-    <source src="images/6482495-uhd_3840_2160_30fps.mp4" type="video/mp4">
-  </video>
-  <div class="video-overlay"></div>
-</div>
-
+<!-- NAVBAR -->
 <header class="navbar">
   <div class="logo">Rajus<span>Laundromat</span></div>
-  <nav id="navMenu">
+
+  <nav>
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="pricing.html" class="active">Pricing</a>
     <a href="book.html" class="cta-link">Book Pickup</a>
-    <a href="login.html" class="cta-link">Login</a>
-    <a href="signup.html" class="cta-link">Sign Up</a>
   </nav>
 </header>
 
-<section class="section" data-animate="fade-up">
-  <h2 data-animate="fade-down">Laundry Price Calculator</h2>
-  <p class="section-sub" data-animate="fade-up">Instant cost estimate in Kenyan Shillings</p>
+<!-- CALCULATOR -->
+<section class="section">
+  <h2>Laundry Price Calculator</h2>
+  <p class="section-sub">Instant cost estimate in Kenyan Shillings</p>
 
-  <div class="card" style="max-width:600px;margin:auto;" data-animate="zoom-in">
-    <label data-animate="fade-up">Service Type</label>
-    <select id="service" data-animate="fade-up">
+  <div class="card" style="max-width:600px;margin:auto;">
+
+    <label>Service Type</label>
+    <select id="service">
       <option value="wash">Wash & Fold (KES 100/kg)</option>
       <option value="washIron">Wash, Dry & Iron (KES 150/kg)</option>
       <option value="iron">Ironing Only (KES 50/item)</option>
       <option value="dryclean">Dry Cleaning (KES 400/item)</option>
-      <option value="duvets">Duvets & Curtains (From KES 500)</option>
+      <option value="duvets">Duvets & Curtains (KES 500 each)</option>
     </select>
 
-    <label style="margin-top:15px;" data-animate="fade-up">Weight / Quantity</label>
-    <input type="number" id="quantity" placeholder="Enter kg or items" data-animate="fade-up">
+    <label style="margin-top:15px;">Weight / Quantity</label>
+    <input type="number" id="quantity" placeholder="Enter kg or items">
 
-    <label style="margin-top:15px;" data-animate="fade-up">
+    <label style="margin-top:15px;">
       <input type="checkbox" id="express"> Express Service (+20%)
     </label>
 
-    <h3 style="margin-top:20px;" data-animate="fade-down">Total: <span id="total" data-animate="pulse">KES 0</span></h3>
+    <h3 style="margin-top:20px;">
+      Total: <span id="total">KES 0</span>
+    </h3>
 
-    <button style="margin-top:20px;" onclick="proceedBooking()" data-animate="zoom-in">Proceed to Booking</button>
+    <button style="margin-top:20px;">Proceed to Booking</button>
+
   </div>
 </section>
 
+<!-- WHATSAPP -->
 <a href="https://wa.me/254717667713" class="whatsapp-float">💬</a>
 
-<script src="../shared-animations.js"></script>
-<script src="js/calculator.js"></script>
-</script>
-<script src="js/app.js"></script>
-<script src="js/navigator.js"></script>
-  <script>
-document.getElementById("quantity").addEventListener("input", calculate);
-document.getElementById("service").addEventListener("change", calculate);
-document.getElementById("express").addEventListener("change", calculate);
+<!-- ✅ WORKING CALCULATOR SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-function calculate() {
-  alert("working"); // test
-}
+  const service = document.getElementById("service");
+  const quantity = document.getElementById("quantity");
+  const express = document.getElementById("express");
+  const total = document.getElementById("total");
+
+  function calculate() {
+    let qty = parseFloat(quantity.value) || 0;
+    let price = 0;
+
+    if (service.value === "wash") price = qty * 100;
+    if (service.value === "washIron") price = qty * 150;
+    if (service.value === "iron") price = qty * 50;
+    if (service.value === "dryclean") price = qty * 400;
+    if (service.value === "duvets") price = qty * 500;
+
+    if (express.checked) {
+      price *= 1.2;
+    }
+
+    total.textContent = "KES " + Math.round(price);
+  }
+
+  service.addEventListener("change", calculate);
+  quantity.addEventListener("input", calculate);
+  express.addEventListener("change", calculate);
+
+});
 </script>
+
 </body>
 </html>
- 

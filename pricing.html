@@ -53,7 +53,9 @@
       Total: <span id="total">KES 0</span>
     </h3>
 
-    <button style="margin-top:20px;">Proceed to Booking</button>
+<button onclick="goToBooking()" style="margin-top:20px;">
+  Proceed to Booking
+</button>
 
   </div>
 </section>
@@ -124,6 +126,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   calculate(); // 👈 THIS LINE FIXES IT
 });
+</script>
+  <script>
+function goToBooking() {
+  const service = document.getElementById("service").value;
+  const quantity = document.getElementById("quantity").value || 0;
+  const totalText = document.getElementById("total").textContent;
+
+  // extract number from "KES 500"
+  const total = totalText.replace("KES ", "");
+
+  // redirect with data
+  window.location.href = `book.html?service=${service}&qty=${quantity}&total=${total}`;
+}
 </script>
 </body>
 </html>

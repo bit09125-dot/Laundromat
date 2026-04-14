@@ -153,6 +153,28 @@
     alert('Marking order as paid. Our team will confirm shortly.');
   }
 </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  const params = new URLSearchParams(window.location.search);
+
+  const service = params.get("service");
+  const qty = params.get("qty");
+  const total = params.get("total");
+
+  console.log(service, qty, total);
+
+  // Example: display it somewhere
+  if (service && qty && total) {
+    document.body.insertAdjacentHTML("afterbegin", `
+      <div style="padding:15px; background:#111; color:#fff;">
+        Selected: ${service} | Qty: ${qty} | Total: KES ${total}
+      </div>
+    `);
+  }
+
+});
+</script>
 
 <script src="js/navigator.js"></script>
 

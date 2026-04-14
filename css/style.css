@@ -362,3 +362,23 @@ footer a {
   }
 
 }
+/* HIDE MENU ON MOBILE */
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  #navMenu {
+    display: none;
+    flex-direction: column;
+    background: rgba(0,0,0,0.9);
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px 0;
+  }
+
+  #navMenu.active {
+    display: flex;
+  }
+}

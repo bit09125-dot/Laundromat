@@ -265,3 +265,100 @@ footer a {
 .guide-controls { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
 .guide-controls button { padding:8px 12px; border-radius:8px; border:none; cursor:pointer; }
 .guide-step { min-height: 60px; }
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+
+  /* NAVBAR */
+  .navbar {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar nav a {
+    margin: 8px 0;
+  }
+
+  /* HERO */
+  .hero-content {
+    width: 90%;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button, .ghost-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 70px 20px;
+  }
+
+  .section h2 {
+    font-size: 1.6rem;
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+  }
+
+  /* GRID */
+  .grid, .trust-grid {
+    gap: 15px;
+  }
+
+  .card, .trust-card {
+    padding: 20px;
+  }
+
+  /* MAP */
+  .map-container iframe {
+    height: 250px;
+  }
+
+  /* CTA */
+  .cta {
+    padding: 60px 20px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 20px;
+  }
+
+  /* FLOAT BUTTONS */
+  .whatsapp-float {
+    font-size: 20px;
+    padding: 12px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .guide-btn {
+    left: 20px;
+    bottom: 20px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  /* GUIDE MODAL */
+  .guide-card {
+    padding: 18px;
+  }
+
+}

@@ -362,23 +362,32 @@ footer a {
   }
 
 }
-/* HIDE MENU ON MOBILE */
+/* HAMBURGER BUTTON DEFAULT (HIDDEN ON DESKTOP) */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
 
   .menu-toggle {
     display: block;
   }
 
-  #navMenu {
+  .navbar nav {
     display: none;
     flex-direction: column;
-    background: rgba(0,0,0,0.9);
     width: 100%;
+    background: rgba(0,0,0,0.9);
     margin-top: 10px;
     padding: 15px 0;
   }
 
-  #navMenu.active {
+  .navbar nav.active {
     display: flex;
   }
+
 }
+

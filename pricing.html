@@ -60,33 +60,18 @@
 
 <script src="../shared-animations.js"></script>
 <script src="js/calculator.js"></script>
+</script>
+<script src="js/app.js"></script>
+<script src="js/navigator.js"></script>
   <script>
 document.getElementById("quantity").addEventListener("input", calculate);
 document.getElementById("service").addEventListener("change", calculate);
 document.getElementById("express").addEventListener("change", calculate);
 
 function calculate() {
-  const service = document.getElementById("service").value;
-  const qty = parseFloat(document.getElementById("quantity").value) || 0;
-  const express = document.getElementById("express").checked;
-
-  let price = 0;
-
-  if (service === "wash") price = qty * 100;
-  if (service === "washIron") price = qty * 150;
-  if (service === "iron") price = qty * 50;
-  if (service === "dryclean") price = qty * 400;
-  if (service === "duvets") price = qty * 500;
-
-  if (express) {
-    price *= 1.2;
-  }
-
-  document.getElementById("total").textContent = "KES " + price.toFixed(0);
+  alert("working"); // test
 }
 </script>
-<script src="js/app.js"></script>
-<script src="js/navigator.js"></script>
 </body>
 </html>
  
